@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Czy to już czas?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #f0f0f0;
+    }
+    #countdown {
+      font-size: 2em;
+      background-color: white;
+      display: inline-block;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+  </style>
+</head>
+<body>
+
+  <h1>Czy to już czas na zjazd?</h1>
+  <div id="subtitle">
+    <h2>Jeszcze nie.</h2>
+    <p>Do spotkania <span id="on-date">(2026.06.05)</span> pozostało</p>
+  </div>
+  <div id="countdown">Ładowanie...</div>
+
+  <script>
+    const countdownElement = document.getElementById('countdown');
+    const targetDate = new Date('2026-06-05T00:00:00');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        countdownElement.innerText = "Tak! Nadszedł 5 czerwca 2026!";
+        clearInterval(intervalId);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0');
+      const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+      
+      countdownElement.innerText = `${days} dni i ${hours}:${minutes}`;
+    }
+
+    updateCountdown();
+    const intervalId = setInterval(updateCountdown, 60000);
+  </script>
+
+</body>
+</html>
